@@ -1,0 +1,12 @@
+README.md
+setup.py
+src/tabu_search/__init__.py
+src/tabu_search/demo_functions.py
+src/tabu_search/tabu_api.py
+src/tabu_search/tabu_local_search.py
+src/tabu_search/tabu_tools.py
+src/tabu_search/tabu_validators.py
+src/tabu_search.egg-info/PKG-INFO
+src/tabu_search.egg-info/SOURCES.txt
+src/tabu_search.egg-info/dependency_links.txt
+src/tabu_search.egg-info/top_level.txt
