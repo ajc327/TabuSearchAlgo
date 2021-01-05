@@ -63,7 +63,7 @@ class TabuSolver:
 
     def intensify_search_average(self):
         print("intensifying")
-        self._current_location = 1./self.MTM*np.sum(np.array(i[1]) for i in self._best_solutions_found)
+        self._current_location = 1./self.MTM*sum(np.array(i[1]) for i in self._best_solutions_found)
         self.record_point(self._current_location, flag = 3)
 
     def diversify_search(self):

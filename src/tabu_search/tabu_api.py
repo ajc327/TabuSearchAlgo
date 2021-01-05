@@ -24,8 +24,8 @@ class TabuSolver:
     intensify = Number(1, 1000, True)
     diversify = Number(1, 1000, True)
     reduce = Number(1,1000, True)
-    stopping_stepsize = Number(0,30)
-    stepsize = Number(0, 1000)
+    stopping_stepsize = Number(0.01,30)
+    stepsize = Number(0.01, 1000)
     n_dims = Number(1,30,True)
     def __init__(self, obj_fun = rana, STM = 7, MTM = 4, intensify = 10, diversify = 15, reduce = 25, stopping_stepsize = 4.0,
                  stepsize = 40, n_dims = 2):
@@ -63,7 +63,7 @@ class TabuSolver:
 
     def intensify_search_average(self):
         print("intensifying")
-        self._current_location = 1./self.MTM*np.sum(np.array(i[1]) for i in self._best_solutions_found)
+        self._current_location = 1./self.MTM*sum(np.array(i[1]) for i in self._best_solutions_found)
         self.record_point(self._current_location, flag = 3)
 
     def diversify_search(self):
