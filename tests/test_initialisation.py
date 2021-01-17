@@ -7,8 +7,19 @@ import pytest
 from tabu_search import *
 from hypothesis import given, strategies as st
 from hypothesis import settings
-
+import time
 # settings(max_examples=10)
+
+def timer(fun):
+    def wrapper(*args,**kwargs):
+        start = time.time()
+        rv = fun(*args, **kwargs)
+        finish = time.time()
+        print(f"Time taken was {finish - start:.3f} seconds")
+        return rv
+    return wrapper
+
+
 
 @given(stm = st.integers(1,1000), mtm = st.integers(1,1000), intensify = st.integers(1,1000),
        diversify = st.integers(1,1000), reduce = st.integers(1,1000), stopping_stepsize = st.floats(0.01,30),
@@ -23,13 +34,11 @@ def test_initialises_with_valid_input(stm, reduce, stopping_stepsize, stepsize, 
 
 
 
-
 @pytest.mark.parametrize("stm, mtm, stepsize, ndims",[(-1,1,10,50),(1,-1,10,10),(2,2,100000,20),(2,2,10,50)])
 def test_initialise_fails_with_invalid_input(stm,mtm, stepsize, ndims):
     '''The system will not be able to initialise if given invalid inputs'''
     with pytest.raises(ValueError):
         solver = TabuSolver(obj_fun=rana, STM=stm, MTM= mtm, stepsize= stepsize, n_dims= ndims)
-
 
 @pytest.mark.parametrize("stm, mtm, stepsize, ndims",
                          [(11, 1, 10, "50"), (1, "1", 10, 10), ("2", 2, 10, 20), ([2], 2, 10, 10)])
@@ -38,4 +47,14 @@ def test_initialise_fails_with_wrong_type_input(stm, mtm, stepsize, ndims):
     with pytest.raises(TypeError):
         solver = TabuSolver(obj_fun=rana, STM=stm, MTM=mtm, stepsize=stepsize, n_dims=ndims)
 
+
+
+
+@timer
+def some_function():
+    for i in range(10000000):
+        pass
+    return
+
+some_function()
 

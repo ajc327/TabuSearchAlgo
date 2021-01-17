@@ -10,7 +10,7 @@ import numpy as np
 import bisect
 
 def visualise_population_location(parents, upper=500, lower=-500, flags = None):
-    # This function shows the plot
+    # This function shows the plot for
     assert len(parents[0]) ==2
 
     x = np.linspace(lower,upper,300)
@@ -32,19 +32,23 @@ def visualise_population_location(parents, upper=500, lower=-500, flags = None):
 
 
 def convert_to_segment(x, n_segments, lower, upper):
-
+    '''Function for encoding the n dimensional input vector in to a string of length n. '''
     segment_list = np.linspace(lower, upper, n_segments+1)
     output_string = ''
     for xi in x:
+        # Bisect finds the rank of the value in a list efficiently
         output_string += str(bisect.bisect(segment_list, xi))
     return output_string
 
 
 def gen_random_x_from_segment(encoded_string, n_segments, lower, upper):
+    ''' Used when diversifying search. Takes a segment encoding and generates a random input point within
+    the search space represented by the segment encoding'''
     x_out = []
     segment_list = np.linspace(lower, upper, n_segments+1)
     for si in encoded_string:
         index = int(si)
+        # Find the bounds on the dimension represented by the encoded character.
         low = segment_list[index-1]
         high = segment_list[index]
         x_out.append(np.random.uniform(low, high))
