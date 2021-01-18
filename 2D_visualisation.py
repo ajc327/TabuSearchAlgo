@@ -7,9 +7,10 @@
 from tabu_search import *
 
 def visualise_population_location(parents, upper=500, lower=-500, flags = None, best = None):
-    # This function shows the plot for
+    '''Contains the code for plotting the results from running the optimiser on the 2d function'''
     assert len(parents[0]) ==2
 
+    # first plot the contour of the function in the input range
     x = np.linspace(lower,upper,300)
     y = np.linspace(lower,upper,300)
     xy = np.meshgrid(x,y)
@@ -19,6 +20,8 @@ def visualise_population_location(parents, upper=500, lower=-500, flags = None, 
     surf = ax.contourf(X,Y,result, levels = 50, cmap = "RdBu_r")
     fig.colorbar(surf, ax = ax)
     my_len = len(parents)
+
+    # setting up the colors for the correct types of visited points
     legend = ["Pattern move", "Visited location","Starting point", "Intensification", "Diversification" ]
     seen = ["red","blue","black","green","pink"]
     for indx, (parent, flag) in enumerate(zip(parents, flags)):
@@ -27,7 +30,10 @@ def visualise_population_location(parents, upper=500, lower=-500, flags = None, 
             ax.scatter(parent[0], parent[1], c= colors[flag], alpha= indx*(0.7/my_len)+0.3, label = legend[flag])
             seen.remove(colors[flag])
         else:
+            # this is just to only show the legend for each color once
             ax.scatter(parent[0], parent[1], c= colors[flag], alpha= indx*(0.7/my_len)+0.3)
+
+    # plot the best point found last so it does not get covered
     ax.scatter(best[1][0], best[1][1], c = "cyan", s = 100, marker ="x", linewidth=5, label = "Best solution")
     ax.legend()
     ax.title.set_text(f"Minimum found: {-best[0]:.2f}")

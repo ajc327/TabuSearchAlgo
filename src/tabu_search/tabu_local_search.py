@@ -12,6 +12,7 @@ def full_local_search(x, fun, stepsize, tabu, lower, higher):
     n_dims = len(x)
     evals = []
     for i, xi in enumerate(x):
+        # looks at each input dimension and either increments it or decrements it
         dx = np.zeros(n_dims)
         for j in (1,-1):
             dx[i] = stepsize*j

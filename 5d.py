@@ -1,6 +1,6 @@
 # Created by Andy at 17-Jan-21
 
-# Enter description here
+# This contains code for running the optimiser on the 5d rana's function.
 
 # ___________________________________
 from tabu_search import *
@@ -9,10 +9,12 @@ default_list = []
 proposed_list = []
 
 for i in range(20):
+    # run the optimiser 20 times and take the best solution
     default_solver = TabuSolver(n_dims=5, reduce=25, MTM=4,reduction_factor=0.7)
     proposed_solver = TabuSolver(n_dims=5, reduce=60, MTM=4,reduction_factor=0.9 )
     _, d_best = default_solver.run()
     _, p_best = proposed_solver.run()
+    # record the best of the best for each run
     default_list.append(sorted(d_best, key = lambda x: x[0])[0])
     proposed_list.append(sorted(p_best, key = lambda x: x[0])[0])
 

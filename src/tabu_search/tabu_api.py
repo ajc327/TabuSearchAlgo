@@ -18,7 +18,7 @@ from collections import namedtuple
 
 
 class TabuSolver:
-
+    '''This is the main user class. The inputs are defined using validator classes'''
     STM  = Number(1,1200, True)
     MTM =  Number(1, 1000, True)
     intensify = Number(1, 1000, True)
@@ -152,9 +152,8 @@ class TabuSolver:
               f"The medium term memory is {self._best_solutions_found}")
 
     def run(self):
-        # Initialise the starting position
+        '''contains the code for solving the problem with the specified set of parameters'''
         while self.stepsize > self.stopping_stepsize:
-        #for i in range(200):
             # do a step search
             self.step()
             if self._counter >= self.reduce:
